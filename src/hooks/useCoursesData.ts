@@ -27,14 +27,14 @@ export type CoursesState =
 export function useCoursesData(){
     const [state,setState] = useState<CoursesState>({status:"loading"});
 
-    useEffect(()=> {
+    useEffect(()=>{
         let cancelled = false;
 
         async function fetchData() {
             setState({status:"loading"});
 
             //fetch courses - this one must succeed , it's the core data.
-            let courses: Course[] = [];
+            let courses: Course[]=[];
             try{
                 const res = await fetch (`${BASE_URL}/assignment/course-data`);
                 if(!res.ok) {
@@ -75,14 +75,14 @@ export function useCoursesData(){
         else{
             setState({status:"success",courses,currency});
         }
-    } // fetch close here before the call 
-    fetchData();
+    }
+        fetchData();
 
-     return() => {
-        cancelled = true;
-    };
-    }, []);
-
+        return() =>{
+            cancelled = true;
+        };
+    
+    },[])
 
     return state;
 }
